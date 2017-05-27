@@ -1,4 +1,4 @@
-function defaults = jpa_get2ndLvlDefaults(secLvlStruct)
+function defaults = jpa_getSecndLvlDefaults(secLvlStruct)
 % function that checks a input-struct of a second Lvl-spm-Analysis and sets
 % default parameters. This is not specific to a certain
 % secoundLvl-statistical Test. These function tests all values which are
@@ -7,7 +7,7 @@ function defaults = jpa_get2ndLvlDefaults(secLvlStruct)
 % anova) it might run into errors!
 %
 % Syntax:
-%    defaults = jpa_get2ndLvlDefaults(secLvlStruct)
+%    defaults = jpa_getSecndLvlDefaults(secLvlStruct)
 %
 % Inputs:
 %    secLvlStruct    - Struct with specific-settings

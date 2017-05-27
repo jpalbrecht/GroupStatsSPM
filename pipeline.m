@@ -130,7 +130,7 @@ sd_level.ttest.dosavebatch = 0;
 % view results
 sd_level.ttest.viewResults = 1;
 % -------------------------------------------------------------------------
-% view results
+% plot results
 sd_level.ttest.plotResults = 0;
 %
 %% ############### twoTTest ###############
