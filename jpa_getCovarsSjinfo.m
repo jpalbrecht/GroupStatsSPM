@@ -122,6 +122,11 @@ end
 if b>a
     grp = transpose(grp);
 end
+% convert to cellstr if necessary
+if ~iscell(grp)
+    grp = cellstr(grp);
+end
+
 %% get Covariates
 % Loop through all Covariates
 for i=1:length(covarNames)

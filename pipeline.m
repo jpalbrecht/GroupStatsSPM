@@ -27,34 +27,33 @@ clear all
 % User-name
 comp_name = getenv('USERNAME');
 % Script-Libary-Path: where did you save this script?
-base_dir_lib = 'D:\owncloud\documents_unshared\Charite\Charite\LibaryP\pipeline\';
+base_dir_lib = 'D:\owncloud\documents_unshared\Charite\Charite\SPM Programmierung\GroupStatsSPM\';
 % 1stLvl data-Path: where is your firstLevel Data with Subject-directorys?
-base_dir_pl = 'F:\fMRI\Preprocessed_on_Windows_Machine_swuaf_VBM8\';
+base_dir_pl = 'E:\CPTMP\Preprocessed_on_Windows_Machine_swuaf_VBM8\';
 % Set spm Mask Threshold
 sd_level.spm.spmMaskThresh = 0.8;               % spm_default: 0.8 on 2nd Lvl
 % Define the path to sjinfo.mat
-sd_level.gen.sjinfo.path = [base_dir_pl 'basicData_Sjinfo.mat'];
+sd_level.gen.sjinfo.path = [base_dir_pl 'sjinfo.mat'];
 % Define structure to ID-Vector
 sd_level.gen.sjinfo.IDs = 'KAP.STID';                 % default: ''
 % Define structure to Grps-Vector
-sd_level.gen.sjinfo.Grps = 'KAP.PKSTRING';                  % default: ''
+sd_level.gen.sjinfo.Grps = 'KAP.PK';                  % default: ''
 % Define IDs which are excluded from the statistical tests
-sd_level.gen.excludeList = {'1234','2345' };                      % default: {''}, i.e. no ID will be excluded from the test
+sd_level.gen.excludeList = {'','' };                      % default: {''}, i.e. no ID will be excluded from the test
 % Define the path to a excludeList Textfile, leave empty if not wanted
-sd_level.gen.excludeListPath = 'F:\fMRI\Preprocessed_on_Windows_Machine_swuaf_VBM8\excludeTXT.txt';
+sd_level.gen.excludeListPath = '';
 % define IDs which are included from the statistical tests
 sd_level.gen.includeList = {''};                                   % default: {''},i.e. all IDs will be part of the test
 % Define the path to a includeList Textfile, leave empty if not wanted
 sd_level.gen.includeListPath = '';
 % Define Covariates to be included in the statistical Tests
 sd_level.gen.covarNames = {'Bildungsjahre_ges'
-    'Age_baseline' 
-    'EducationYears'};
+    'Age' };
 %
 %% ############### TTest ###############
 % ________________________________NECESSARY________________________________
 % Switch on Ttest
-sd_level.ttest.on = 1;
+sd_level.ttest.on = 0;
 % Define firstLVL Models to each run ttest for
 sd_level.ttest.FirstLVLModel = {'results_abs_loss_3_noacc',};
 % -------------------------------------------------------------------------
@@ -113,22 +112,22 @@ sd_level.ttest.picPerPage = [ 8 ];
 %
 % _____________________________PARTS TO RUN________________________________
 % Run batch
-sd_level.ttest.run_batch = 0;     
+sd_level.ttest.run_batch = 1;     
 % -------------------------------------------------------------------------
 % Estimate Model
-sd_level.ttest.est_model = 0;
+sd_level.ttest.est_model = 1;
 % -------------------------------------------------------------------------
 % Contrast Manager
-sd_level.ttest.con_man   = 0;
+sd_level.ttest.con_man   = 1;
 % -------------------------------------------------------------------------
 % Evaluate Results
-sd_level.ttest.evalResults = 0;
+sd_level.ttest.evalResults = 1;
 % -------------------------------------------------------------------------
 % save batch and Settings-Struct
-sd_level.ttest.dosavebatch = 0;
+sd_level.ttest.dosavebatch = 1;
 % -------------------------------------------------------------------------
 % view results
-sd_level.ttest.viewResults = 1;
+sd_level.ttest.viewResults = 0;
 % -------------------------------------------------------------------------
 % plot results
 sd_level.ttest.plotResults = 0;
@@ -136,7 +135,7 @@ sd_level.ttest.plotResults = 0;
 %% ############### twoTTest ###############
 % ________________________________NECESSARY________________________________
 % Switch on Two-sample-Ttest
-sd_level.twottest.on = 0;
+sd_level.twottest.on = 1;
 % Define firstLVL Models to each run Two-sample-Ttest for
 sd_level.twottest.FirstLVLModel = {'results_abs_loss_3_noacc'};
 % -------------------------------------------------------------------------
@@ -392,7 +391,7 @@ if sd_level.ttest.on
                 cd(base_dir_lib);
                 ttest.numberOfGrp = sd_level.ttest.numberOfGrp(grp);
                 % run ttest with desired parameters
-                jpa_FDttest(ttest); % Pause angetreten um 8:10. Ende 18:50
+                jpa_FDttest(ttest); 
                 % run noCov-Ttest if covarNames not empty or equals {''}
                 if isempty(sd_level.ttest.covarNames) || sum(~strcmp('',sd_level.ttest.covarNames ))== 0
                     ttest.covarNames = {''};
@@ -423,10 +422,10 @@ if sd_level.twottest.on
             end
             % for all 2-permutations of Groups do
             cd(base_dir_lib);
-            for per=1:1:length(jpa_build2Permutation(sd_level.twottest.numberOfGrp))
+            for per=1:1:length(jpa_buildTwoPermutation(sd_level.twottest.numberOfGrp))
                 % build
                 cd(base_dir_lib);
-                perm = jpa_build2Permutation(sd_level.twottest.numberOfGrp);
+                perm = jpa_buildTwoPermutation(sd_level.twottest.numberOfGrp);
                 twottest.numberOfGrp = perm{per};
                 % start two-sample-ttest
                 jpa_FDtwottest(twottest);

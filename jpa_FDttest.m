@@ -116,7 +116,7 @@ if nargin ~= 1
     error('Invlaid Number of Parameters');
 end
 % check Input Arguments & get Defaults
-ttest = jpa_get2ndLvlDefaults(ttest);
+ttest = jpa_getSecndLvlDefaults(ttest);
 
 %% Preprocessing
 % initialization
@@ -182,7 +182,7 @@ if ttest.run_batch || ttest.est_model || ttest.con_man
     disp(strcat('run ttest in directory: ',ttest.dirName))
     % search for con_img and get paths
     match = jpa_getDirs(ttest.base_dir_pl,ttest.searchFor);
-    % get Logical Vectors which IDs will be part of the Test and wich match
+    % get Logical Vectors which IDs will be part of the Test and which match
     % will be part of the test
     [logicalIDs, indMatch, idsFound] = jpa_getLogicalID(match, ids, ttest.excludeList, ttest.includeList);
     % initialize

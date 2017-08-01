@@ -116,7 +116,7 @@ if nargin ~= 1
     error('Invlaid Number of Parameters');
 end
 % check Input Arguments & get Defaults
-twottest = jpa_get2ndLvlDefaults(twottest);
+twottest = jpa_getSecndLvlDefaults(twottest);
 
 %% Preprocessing
 % initialization

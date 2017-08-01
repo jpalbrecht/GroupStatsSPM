@@ -12,7 +12,7 @@ function ret = jpa_getCovVec(mat)
 %     ret               - mx1 Matrix containing Cells
 %
 % Example:
-%     jpa_FDmreg({[1;2;3] [4;5;6] ; [7;8;9] [10;11;12]})
+%     jpa_getCovVec({[1;2;3] [4;5;6] ; [7;8;9] [10;11;12]})
 %       -> output: {[1;2;3;4;5;6];[7;8;9;10;11;12]}
 %
 % Other m-files required: none

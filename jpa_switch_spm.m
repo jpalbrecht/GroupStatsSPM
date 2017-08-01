@@ -83,6 +83,9 @@ try
 catch
     disp('No SPMX detected. Just added SPM_path to matlab_path!')
     addpath(pathToSpmNew);
+    if startSpm
+        eval('spm fmri');
+    end
     return
 end
 % initialize newPath
