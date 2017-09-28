@@ -125,7 +125,7 @@ if nargin ~= 1
     error('Invlaid Number of Parameters');
 end
 % check Input Arguments & get Defaults
-anova = jpa_get2ndLvlDefaults(anova);
+anova = jpa_getSecndLvlDefaults(anova);
 % Anova specific parameters
 if  ~isfield(anova, 'independence')
     disp('independence not given! set to yes');
@@ -216,7 +216,7 @@ if anova.run_batch || anova.est_model || anova.con_man
     disp(strcat('run anova in directory: ',anova.dirName))
     % search for con_img and get paths
     match = jpa_getDirs(anova.base_dir_pl,anova.searchFor);
-    % get Logical Vectors which IDs will be part of the Test and wich match
+    % get Logical Vectors which IDs will be part of the Test and which match
     % will be part of the test
     [logicalIDs, indMatch, idsFound] = jpa_getLogicalID(match, ids, anova.excludeList, anova.includeList);
     % initialize

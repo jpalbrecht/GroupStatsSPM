@@ -135,7 +135,7 @@ sd_level.ttest.plotResults = 0;
 %% ############### twoTTest ###############
 % ________________________________NECESSARY________________________________
 % Switch on Two-sample-Ttest
-sd_level.twottest.on = 1;
+sd_level.twottest.on = 0;
 % Define firstLVL Models to each run Two-sample-Ttest for
 sd_level.twottest.FirstLVLModel = {'results_abs_loss_3_noacc'};
 % -------------------------------------------------------------------------
@@ -285,7 +285,7 @@ sd_level.anova.dosavebatch = 1;
 %% ############### Multiple Regression ###############
 % ________________________________NECESSARY________________________________
 % Switch on Multiple Regression
-sd_level.mreg.on = 0;
+sd_level.mreg.on = 1;
 % Define firstLVL Models to each run Multiple Regression for
 sd_level.mreg.FirstLVLModel = {'results_abs_loss_3_noacc'};
 % -------------------------------------------------------------------------

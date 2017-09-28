@@ -184,7 +184,7 @@ if twottest.run_batch || twottest.est_model || twottest.con_man
     disp(strcat('run twottest in directory: ',twottest.dirName))
     % search for con_img and get paths
     match = jpa_getDirs(twottest.base_dir_pl,twottest.searchFor);
-    % get Logical Vectors which IDs will be part of the Test and wich match
+    % get Logical Vectors which IDs will be part of the Test and which match
     % will be part of the test
     [logicalIDs, indMatch, idsFound] = jpa_getLogicalID(match, ids, twottest.excludeList,  twottest.includeList);
     % initialize

@@ -118,7 +118,7 @@ if nargin ~= 1
     error('Invlaid Number of Parameters');
 end
 % check Input Arguments & get Defaults
-mreg = jpa_get2ndLvlDefaults(mreg);
+mreg = jpa_getSecndLvlDefaults(mreg);
 % mreg specific parameters
 if  ~isfield(mreg, 'intercept')
     mreg.intercept = 1;
@@ -186,7 +186,7 @@ if mreg.run_batch || mreg.est_model || mreg.con_man
     disp(strcat('run mreg in directory: ',mreg.dirName))
     % search for con_img and get paths
     match = jpa_getDirs(mreg.base_dir_pl,mreg.searchFor);
-    % get Logical Vectors which IDs will be part of the Test and wich match
+    % get Logical Vectors which IDs will be part of the Test and which match
     % will be part of the test
     [logicalIDs, indMatch, idsFound] = jpa_getLogicalID(match, ids, mreg.excludeList, mreg.includeList);
     % initialize

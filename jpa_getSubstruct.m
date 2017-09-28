@@ -48,7 +48,7 @@ fields = fieldnames(parentStruct);
 if ~isempty(fields)
     % loop throught all fields
     for i=1:1:length(fields)
-        % cehck if current field is the one we search for
+        % check if current field is the one we search for
         if strcmp(fields{i,1},searchStruct) % case: yes
             % give search struct back
             resStruct = parentStruct.(fields{i,1});

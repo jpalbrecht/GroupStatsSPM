@@ -1,4 +1,4 @@
-function jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm)
+function jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm, delAllSPM)
 % Function that switches the SPM version. Valid is SPM12 and SPM8.
 % If only numbers are specified then function will set default path to spm
 % First given number is from what version to change. Secound number is to
@@ -7,6 +7,7 @@ function jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm)
 % Syntax:  
 %    jpa_switch_spm(pathToSpmOld, pathToSpmNew)
 %    jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm)
+%    jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm, delAllSPM)
 %
 % Inputs:
 %    pathToSpmOld    - string, Path to old SPM version
@@ -17,6 +18,9 @@ function jpa_switch_spm(pathToSpmOld, pathToSpmNew, startSpm)
 %                       i.e. matlabroot\toolbox\spmX
 %    startSpm        - boolean, indicates weather to start SPM afterwards
 %                       i.e. 0 will not start spm, 1 will do so
+%   delAllSPM        - boolean, indicates weather to delete ALL SPM-paths  
+%                       from the SPM version specified in pathToSpmOld 
+%      DANGEROUS - can delete also Paths you actually don't want to delete!
 %
 % Outputs:
 %                    
@@ -44,29 +48,49 @@ currPath = path;
 
 %% Parsing Arguments
 if nargin < 2
-    disp('Not enough input arguments. use help for more information about inputs!')
-else
-    if (isnumeric(pathToSpmOld) && isnumeric(pathToSpmNew))
-       if ( pathToSpmOld == 8 && pathToSpmNew == 12 )
-           pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm8'];
-           pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm12'];
-       elseif ( pathToSpmOld == 12 && pathToSpmNew == 8 )
-           pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm12'];
-           pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm8'];
-       else 
-           disp('Unknown spm version number!')
-           return
-       end
-   end
-end
-if nargin == 2
+    error('Not enough input arguments. use help for more information about inputs!');
+elseif nargin == 2
    startSpm = 0; 
-elseif  nargin ==3
+   delAllSPM = 0;
+elseif  nargin == 3
    if  (~isnumeric(startSpm) || startSpm == 0)
        startSpm = 0;
-   else
-       startSpm = 1;
    end
+   delAllSPM = 0;
+elseif nargin == 4
+    if  (~isnumeric(delAllSPM) || delAllSPM == 0)
+        delAllSPM = 0;
+    end
+else
+    error('Wrong number of arguments!')
+end
+% backup input
+pathToSpmOldBC = pathToSpmOld;
+% check if path or spm-version number is given
+if (isnumeric(pathToSpmOld) && isnumeric(pathToSpmNew))
+    disp('No path was specified! Trying to add standard path!')
+   if ( pathToSpmOld == 8 && pathToSpmNew == 12 )
+       pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm8'];
+       pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm12'];
+   elseif ( pathToSpmOld == 12 && pathToSpmNew == 8 )
+       pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm12'];
+       pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm8'];
+   else 
+       disp('Unknown spm version number!')
+       return
+   end
+elseif isnumeric(pathToSpmOld)
+    if pathToSpmOld == 8
+        pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm8'];
+    elseif pathToSpmOld == 12
+        pathToSpmOld = [matlabroot filesep 'toolbox' filesep 'spm12'];
+    end
+elseif isnumeric(pathToSpmNew)
+    if pathToSpmNew == 8
+        pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm8'];
+    elseif pathToSpmNew == 12
+        pathToSpmNew = [matlabroot filesep 'toolbox' filesep 'spm12'];
+    end
 end
 %% Change SPM version
 % check for correctness
@@ -87,7 +111,7 @@ catch
         eval('spm fmri');
     end
     return
-end
+end 
 % initialize newPath
 newPath = '';
 % split old path that its a cell Array
@@ -95,9 +119,18 @@ currPath =  textscan(currPath,'%s', 'delimiter' , ';');
 currPath = currPath{1};
 [lenPath,~] = size(currPath);
 % delete every path that contains pathToSpmOld
-for ind=1:1:lenPath 
-    if isempty(strfind(currPath{ind,1}, pathToSpmOld))
-        newPath = [newPath ';' currPath{ind,1}];
+if ~delAllSPM
+    for ind=1:1:lenPath 
+        if isempty(strfind(currPath{ind,1}, pathToSpmOld))
+            newPath = [newPath ';' currPath{ind,1}];
+        end
+    end
+else
+    % delete every single path that contains raw input... dangerous!
+    for ind=1:1:lenPath 
+        if isempty(strfind(currPath{ind,1}, pathToSpmOldBC))
+            newPath = [newPath ';' currPath{ind,1}];
+        end
     end
 end
 % remove leading ; from newPath
@@ -105,6 +138,7 @@ newPath = newPath(2:end);
 path(newPath);
 % add new spm path to path
 addpath(pathToSpmNew);
+clear spm_jobman
 if startSpm
     eval('spm fmri');
 end

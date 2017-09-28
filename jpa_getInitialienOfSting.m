@@ -39,7 +39,7 @@ initials = repmat({''},1,b);
 % Loops through rows and cols
 for j=1:1:b
     for i=1:1:a
-        % check wather Char or not
+        % check whether Char or not
         if ischar(str{i,j})
             % check for empty strings
             if ~strcmp(str{i,j} , '')
