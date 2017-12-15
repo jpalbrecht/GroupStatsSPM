@@ -23,7 +23,6 @@
 
 %------------- BEGIN CODE --------------
 clear all
-which_spm(12,'genaucka',1)
 %% ############### Generell Settings ###############
 % User-name
 comp_name = getenv('USERNAME');
@@ -34,7 +33,7 @@ base_dir_pl = 'F:\data\';
 % Set spm Mask Threshold
 sd_level.spm.spmMaskThresh = 0.2;               % spm_default: 0.8 on 2nd Lvl
 % Define the path to sjinfo.mat
-sd_level.gen.sjinfo.path = 'S:\AG\AG-Spielsucht2\Daten\VPPG_Daten\Adlershof\Daten\PDT\pilot\sjinfo.mat';;
+sd_level.gen.sjinfo.path = 'E:\Google Drive\Promotion\VPPG\VPPG_Exchange\Experimente\PDT\Daten\pilot\sjinfo.mat';
 % Define structure to ID-Vector
 sd_level.gen.sjinfo.IDs = 'KAP.STID';                 % default: ''
 % Define structure to Grps-Vector
@@ -176,36 +175,36 @@ sd_level.twottest.covarNames = sd_level.gen.covarNames;
 sd_level.twottest.interaction = [];                  % default: 1
 % -------------------------------------------------------------------------
 % 2nd Level Contrasts
-sd_level.twottest.contrastType    = {'t','t','t'};
-sd_level.twottest.contrastNames   = {'HC>PG','HC<PG','EOI'};
+sd_level.twottest.contrastType  = {'t','t','t'};
+sd_level.twottest.contrastNames = {'HC>PG','HC<PG','EOI'};
 sd_level.twottest.contrastWeights = {[1 -1] [-1 1] [1 1]};
-sd_level.twottest.contrastRep     = {'none'};
-sd_level.twottest.Fstandard       = true;
+sd_level.twottest.contrastRep = {'none'};
+sd_level.twottest.Fstandard = true;
 % -------------------------------------------------------------------------
 % evaluate results
-sd_level.twottest.evalResPValue    = 0.05;                  % default: 0.05
+sd_level.twottest.evalResPValue = 0.05;                     % default: 0.05
 sd_level.twottest.evalResThreshold = 10;                    % default: 10
-sd_level.twottest.evalResROI       = {'F:\fMRI\prep\results_2nd_level\ROIs\ROIs\lbprob_frontal_midline_bilateral.nii'};
-sd_level.twottest.evalResAtlas     = 'F:\fMRI\Programme\spm12\tpm\labels_Neuromorphometrics.xml';
+sd_level.twottest.evalResROI = {'F:\fMRI\prep\results_2nd_level\ROIs\ROIs\lbprob_frontal_midline_bilateral.nii'};
+sd_level.twottest.evalResAtlas = 'F:\fMRI\Programme\spm12\tpm\labels_Neuromorphometrics.xml';
 % -------------------------------------------------------------------------
 % view results
 sd_level.twottest.mricroGLPath = 'F:\fMRI\Programme\mricrogl';          %
-sd_level.twottest.loadimage    = 'F:\fMRI\prep\results_2nd_level\mean_anatomy_final_group\mean_group_anatomy_CT_PG_AD.nii'; % BG Image
+sd_level.twottest.loadimage = 'F:\fMRI\prep\results_2nd_level\mean_anatomy_final_group\mean_group_anatomy_CT_PG_AD.nii'; % BG Image
 % -------------------------------------------------------------------------
 % plot results
 sd_level.twottest.plotPerRow = 2;
 sd_level.twottest.plotPerCol = 2;
 sd_level.twottest.picPerPage = [];
-sd_level.twottest.colSchem   = 'edge_phong';
+sd_level.twottest.colSchem = 'edge_phong';
 % _____________________________PARTS TO RUN________________________________
 % Run batch
-sd_level.twottest.run_batch   = 1;
+sd_level.twottest.run_batch = 1;
 % -------------------------------------------------------------------------
 % Estimate Model
-sd_level.twottest.est_model   = 1;
+sd_level.twottest.est_model = 1;
 % -------------------------------------------------------------------------
 % Contrast Manager
-sd_level.twottest.con_man     = 1;
+sd_level.twottest.con_man   = 1;
 % -------------------------------------------------------------------------
 % Evaluate Results
 sd_level.twottest.evalResults = 0;
@@ -232,18 +231,18 @@ sd_level.anova.numberOfGrp = {'CT' ,'PG', 'AD'};
 % Define the path to sjinfo.mat if different to generell settings
 sd_level.anova.sjinfo.path = sd_level.gen.sjinfo.path;
 % Define the structure to IDs if different to generell settings
-sd_level.anova.sjinfo.IDs  = sd_level.gen.sjinfo.IDs;                 % default: ''
+sd_level.anova.sjinfo.IDs = sd_level.gen.sjinfo.IDs;                 % default: ''
 sd_level.anova.sjinfo.Grps = sd_level.gen.sjinfo.Grps;               % default: ''
 % -------------------------------------------------------------------------
 % Define excludeList if different to generell settings
-sd_level.anova.excludeList     = sd_level.gen.excludeList ;              % default: {''}
+sd_level.anova.excludeList = sd_level.gen.excludeList ;              % default: {''}
 sd_level.anova.excludeListPath = sd_level.gen.excludeListPath;
 % Define includeList if different to generell settings
-sd_level.anova.includeList     = sd_level.gen.includeList;               % default: {''}
+sd_level.anova.includeList = sd_level.gen.includeList;               % default: {''}
 sd_level.anova.includeListPath = sd_level.gen.includeListPath;
 % -------------------------------------------------------------------------
 % Define Covariates if different to generell settings
-sd_level.anova.covarNames  = sd_level.gen.covarNames;
+sd_level.anova.covarNames = sd_level.gen.covarNames;
 sd_level.anova.interaction = [ 1 1 1 ];                    % default: 1
 % -------------------------------------------------------------------------
 % 2nd Level Contrasts

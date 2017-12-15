@@ -112,7 +112,7 @@ ss_level.gppi.Estimate=1;
 % first. For the ‘cond’ approach task has to occur in at least 1 run, which 
 % is why you have the option. This field should be entered as a cell array.
 % TASK EQUALS CONDITION
-ss_level.gppi.Tasks = {'1' 'Pic.on','Pic.gam.on','Pic.gam.opt.on'}; 
+ss_level.gppi.Tasks = {'0' 'Pic.on','Pic.gam.on','Pic.gam.opt.on'}; 
 % For traditional PPI, you must specify weight vector for each task
 ss_level.gppi.Weights = [-1 1];
 % Specifies the ROIs must be the same size in all subjects.

@@ -60,7 +60,7 @@ xULen    = cur_size(2);
 conIt = 1;
 gppiContrasts = struct();
 % loop over sessions
-for sessIt=1:1:1 %xSessLen
+for sessIt=1:1:xSessLen
    % loop over Predictors (U) - e.g. TASKS
    for preIt=1:1:xULen
        ui = spmStruct.Sess(sessIt).U(1,preIt);
@@ -71,12 +71,12 @@ for sessIt=1:1:1 %xSessLen
        % produce contrast: each MainEffect with all parametric modulators
        for mainIt=1:1:numMain
            mainName = ui.name{1,mainIt};
-           % add contrast (of onset regressor, without param mods)
-           gppiContrasts(conIt).name = mainName;
+           % add contrast (of onset regressor, without param mods
+           gppiContrasts(conIt).name = [mainName '_' pi.name];
            gppiContrasts(conIt).left = {mainName}; %left is always bigger than right
            gppiContrasts(conIt).right = {''};
            gppiContrasts(conIt).Weighted = 0;
-           gppiContrasts(conIt).Contrail = [];
+           gppiContrasts(conIt).Contrail.L = {['x' pi.name '^' num2str(pi.h) ]};
            gppiContrasts(conIt).STAT = 'T';
            gppiContrasts(conIt).MinEvents = minEvents;
            gppiContrasts(conIt).MinEventsPer = [];
@@ -89,7 +89,7 @@ for sessIt=1:1:1 %xSessLen
                pi = ui.P(1,paraIt);
                if pi.h >0 % else its 'none'
                    % add contrast 
-                   gppiContrasts(conIt).name = [mainName 'x' pi.name];
+                   gppiContrasts(conIt).name = [mainName '_' pi.name];
                    gppiContrasts(conIt).left = {mainName}; %left is always bigger than right
                    gppiContrasts(conIt).right = {''};
                    gppiContrasts(conIt).Weighted = 0;
